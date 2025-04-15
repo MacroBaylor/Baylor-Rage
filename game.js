@@ -4,6 +4,11 @@ const ctx = canvas.getContext("2d");
 const bgImage = new Image();
 bgImage.src = "background.png";
 
+function update() {
+  ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+  // ... rest of your drawing code
+}
+
 let player = { x: 400, width: 64, height: 64 };
 let coins = [];
 let coinCount = 0;
