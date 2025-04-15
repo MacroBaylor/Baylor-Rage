@@ -15,7 +15,7 @@ let playerStages = [
   new Image(),
   new Image()
 ];
-playerStages[0].src = "character_ss1.png";
+playerStages[0].src = "character.png";
 playerStages[1].src = "character_ss2.png";
 playerStages[2].src = "character_ss3.png";
 let playerImg = playerStages[0];
