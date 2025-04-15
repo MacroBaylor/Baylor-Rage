@@ -6,8 +6,41 @@ bgImage.src = "background.png";
 
 function update() {
   ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
-  // ... rest of your drawing code
+
+  if (coinCount >= 20) stage = 2;
+  else if (coinCount >= 10) stage = 1;
+  playerImg.src = playerStages[stage];
+
+  // Draw coins first
+  for (let coin of coins) {
+    coin.y += coinSpeed;
+    ctx.drawImage(coinImg, coin.x, coin.y, coin.size, coin.size);
+  }
+
+  // NOW draw character on top
+  ctx.drawImage(playerImg, player.x, canvas.height - player.height - 10, player.width, player.height);
+
+  // Collision detection
+  coins = coins.filter(coin => {
+    if (
+      coin.y + coin.size >= canvas.height - player.height - 10 &&
+      coin.x > player.x &&
+      coin.x < player.x + player.width
+    ) {
+      coinCount++;
+      coinSpeed = 4 + coinCount * 0.2;
+      return false;
+    }
+    return coin.y < canvas.height;
+  });
+
+  ctx.fillStyle = "white";
+  ctx.font = "24px Arial";
+  ctx.fillText("Coins: " + coinCount, 10, 30);
+
+  requestAnimationFrame(update);
 }
+
 
 let player = { x: 400, width: 64, height: 64 };
 let coins = [];
